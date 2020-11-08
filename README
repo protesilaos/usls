@@ -190,3 +190,13 @@ This blog post from 2020-10-08 describes the core ideas of usls:
 Some references are out-of-date, since the library is expanded to
 support Org and Markdown file types, while it can be configured to
 access subdirectories inside the 'usls-directory'.
+
+
+Free software license
+---------------------
+
+usls.el is distributed under the terms of the GNU General Public
+License, Version 3 or, at your convenience, a later version.
+
+Refer to the COPYING document, distributed as part of this project, for
+the legal text.
