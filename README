@@ -185,6 +185,10 @@ the Emacs milieu.  Some ideas:
     so will populate the buffer with listings from the current directory
     and all its subdirectories.
 
+    (Note: 'C-u l' is for any directory path at point.  If you only ever
+    want for the directory shown by dired, use 'C-u s' instead, which is
+    not sensitive to the location of the cursor.)
+
 The principle is to learn how to use Emacs' existing capabilities or
 extensions to your advantage---not just for usls but for your day-to-day
 operations.
