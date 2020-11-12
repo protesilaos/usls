@@ -160,6 +160,17 @@ the Emacs milieu.  Some ideas:
   package.  Though you could also use 'ibuffer-do-query-replace',
   'dired-do-find-regexp-and-replace', 'multi-occur'.
 
++ If you are running Emacs 28 (current development target) make sure you
+  give a fair chance to project.el, as it contains lots of commands that
+  can operate on a per-project basis (find a file, grep, query and
+  replace...).  Just make the 'usls-directory' a "project" and the rest
+  follows from there.  To do so, either run any of the commands listed
+  in 'C-x p C-h' while inside the 'usls-directory' or choose that
+  directory from the 'C-x p p' prompt.  For more on project.el, evaluate
+  the following expression to read the Info node:
+
+      (info "(emacs) Projects")
+
 + Benefit from dired's numerous capabilities (which can be combined).
 
   * For example, the key sequence '% m' (dired-mark-files-regexp) lets
