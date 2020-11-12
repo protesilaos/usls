@@ -160,7 +160,7 @@ the Emacs milieu.  Some ideas:
   package.  Though you could also use 'ibuffer-do-query-replace',
   'dired-do-find-regexp-and-replace', 'multi-occur'.
 
-+ Benefit from dired's numerous capabilities.
++ Benefit from dired's numerous capabilities (which can be combined).
 
   * For example, the key sequence '% m' (dired-mark-files-regexp) lets
     you mark files based on a regular expression or just a string.  Say
@@ -177,9 +177,21 @@ the Emacs milieu.  Some ideas:
     you can interactively find virtually any file with only a few key
     strokes.
 
+  * To work with dired subdirectories, you can produce a recursive list
+    of the current buffer.  Place the point over the file system path
+    that is at the top of the dired buffer (it shows the directory you
+    are in).  Then use 'C-u l' to modify the 'ls' flags that are active.
+    You want to pass the '-R' switch to those already in effect.  Doing
+    so will populate the buffer with listings from the current directory
+    and all its subdirectories.
+
 The principle is to learn how to use Emacs' existing capabilities or
 extensions to your advantage---not just for usls but for your day-to-day
 operations.
+
+To that end, this video tutorial offers a primer on regexp:
+<https://protesilaos.com/codelog/2020-01-23-emacs-regexp-primer/>.
+Other videos in that list may also be of help.
 
 
 General principles of usls.el
