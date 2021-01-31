@@ -5,7 +5,10 @@ WARNING: This software is pre-alpha quality.  There will be bugs,
 errors, cases where improvements could be made.  Please do not try it
 with sensitive data that you have not safely backed up.  If you do use
 it, I encourage you to send me feedback about anything you feel could be
-improved or otherwise made different.
+improved or otherwise made different.  This README is intentionally
+written in a not-so-easy-to-scan plain text format to remind you that
+this is pre-alpha software---a fully fledged Info manual will be
+furnished once the time is right.
 
 
 USLS or usls, which may be pronounced as a series of letters or just
