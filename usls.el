@@ -585,10 +585,19 @@ comma."
 
 (defun usls--categories-add-to-history (categories)
   "Append CATEGORIES to `usls--category-history'."
-  (if (and (> (length categories) 1)
-           (not (stringp categories)))
-      (dolist (x categories)
-        (add-to-history 'usls--category-history x))
+  (if (and (listp categories)
+           (> (length categories) 1))
+      (let ((cats (delete-dups
+                   (mapc (lambda (cat)
+                           (split-string cat "," t))
+                         categories))))
+        (mapc (lambda (cat)
+                (add-to-history 'usls--category-history cat))
+              cats)
+        (setq usls--category-history
+              (cl-remove-if (lambda (x)
+                              (string-match-p crm-separator x))
+                            usls--category-history)))
     (add-to-history 'usls--category-history categories)))
 
 ;;; Templates
