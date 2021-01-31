@@ -699,6 +699,18 @@ strings only the first one is used."
 
 ;;;; New note
 
+(defun usls--format-file (path id categories slug extension)
+  "Helper for `usls-new-note' to format file names.
+PATH, ID, CATEGORIES, SLUG, AND EXTENSION are expected to be
+supplied by `usls-new-note': they will all be converted into a
+single string."
+  (format "%s%s--%s--%s%s"
+          path
+          id
+          categories
+          slug
+          extension))
+
 ;;;###autoload
 (defun usls-new-note (&optional arg)
   "Create new note with the appropriate metadata and file name.
@@ -723,13 +735,9 @@ note in."
          (slug (usls--sluggify title))
          (path (file-name-as-directory (or subdir usls-directory)))
          (id (format-time-string usls-id))
-         (filename
-          (format "%s%s--%s--%s%s"
-                  path
-                  id
-                  (usls--categories-hyphenate categories)
-                  slug
-                  usls-file-type-extension))
+         (filename (usls--format-file path id
+                    (usls--categories-hyphenate categories)
+                    slug usls-file-type-extension))
          (date (format-time-string "%F"))
          (region (usls--file-region)))
     (with-current-buffer (find-file filename)
