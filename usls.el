@@ -5,7 +5,7 @@
 ;; Author: Protesilaos Stavrou <info@protesilaos.com>
 ;; URL: https://protesilaos.com/dotemacs
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "26.1"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -424,6 +424,33 @@ Markdown or Org types."
         `(metadata (category . ,category))
       (complete-with-action action candidates string pred))))
 
+(defvar crm-separator)
+
+;; Contributed by Igor Limar in another context :
+;; <https://github.com/0x462e41>.
+(defun usls-crm-exclude-selected-p (input)
+  "Filter out last INPUT from `completing-read-multiple'.
+Hide non-destructively the previously selected entries from the
+completion table, thus avoiding the risk of inputting the same
+match twice.
+
+To be used as the PREDICATE of `completing-read-multiple'."
+  (if-let* ((pos (string-match-p crm-separator input))
+            (rev-input (reverse input))
+            (element (reverse
+                      (substring rev-input 0
+                                 (string-match-p crm-separator rev-input))))
+            (flag t))
+      (progn
+        (while pos
+          (if (string= (substring input 0 pos) element)
+              (setq pos nil)
+            (setq input (substring input (1+ pos))
+                  pos (string-match-p crm-separator input)
+                  flag (when pos t))))
+        (not flag))
+    t))
+
 ;;;; File name helpers
 
 (defun usls--directory ()
@@ -530,10 +557,14 @@ Markdown or Org types."
   (append (usls--inferred-categories) usls-known-categories))
 
 (defun usls--categories-prompt ()
-  "Prompt for one or more categories (comma/space separated)."
+  "Prompt for one or more categories.
+Those are separated by the `crm-sepator', which typically is a
+comma."
   (let* ((categories (usls-categories))
-         (choice (completing-read-multiple "File category: " categories
-                                           nil nil nil 'usls--category-history)))
+         (choice (completing-read-multiple
+                  "File category: " categories
+                  #'usls-crm-exclude-selected-p
+                  nil nil 'usls--category-history)))
     (if (= (length choice) 1)
         (car choice)
       choice)))
@@ -665,8 +696,13 @@ strings only the first one is used."
 If the region is active, append it to the newly created file.
 
 This command first prompts for a file title and then for a
-category.  The latter supports completion.  To input multiple
-categories, separate them with a space or a comma.
+category.  The latter supports completion.
+
+To input multiple categories, separate them with a comma or
+whatever the value of `crm-separator' is on your end.  While
+inputting multiple categories, those already selected are removed
+from the list of completion candidates, meaning that it is not
+possible to select the same item twice.
 
 With prefix key (\\[universal-argument]) as optional ARG also
 prompt for a subdirectory of `usls-directory' to place the new
