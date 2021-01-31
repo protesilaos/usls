@@ -524,6 +524,14 @@ To be used as the PREDICATE of `completing-read-multiple'."
      (string-match-p "\\.git" x))
    (usls--directory-subdirs)))
 
+(defun usls--directory-subdirs-completion-table (dirs)
+  "Match DIRS as a completion table."
+  (let ((def (car usls--subdirectory-history))
+        (table (usls--completion-table 'file dirs)))
+    (completing-read
+     (format-prompt "Subdirectory of new note" def)
+     table nil t nil 'usls--subdirectory-history def)))
+
 (defun usls--directory-subdirs-prompt ()
   "Handle user input on choice of subdirectory."
   (let* ((subdirs
@@ -531,8 +539,7 @@ To be used as the PREDICATE of `completing-read-multiple'."
               (user-error "No subdirs in `%s'; create them manually"
                           (usls--directory))
             (usls--directory-subdirs-no-git)))
-         (choice (completing-read "Subdirectory of new note: " subdirs
-                                  nil t nil 'usls--subdirectory-history))
+         (choice (usls--directory-subdirs-completion-table subdirs))
          (subdir (file-truename choice)))
     (add-to-history 'usls--subdirectory-history choice)
     subdir))
