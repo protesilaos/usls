@@ -554,7 +554,7 @@ To be used as the PREDICATE of `completing-read-multiple'."
 
 (defun usls-categories ()
   "Combine `usls--inferred-categories' with `usls-known-categories'."
-  (append (usls--inferred-categories) usls-known-categories))
+  (delete-dups (append (usls--inferred-categories) usls-known-categories)))
 
 (defun usls--categories-prompt ()
   "Prompt for one or more categories.
