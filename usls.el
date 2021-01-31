@@ -1018,33 +1018,10 @@ directory will be directly displayed instead."
 
 ;;; User-facing setup
 
-;; TODO 2021-01-31: How to best handle global bindings?  Should there be
-;; a defcustom?  Or maybe a global minor-mode?  Or just docs to let
-;; users handle it?
-(defvar usls-global-prefix-map nil
-  "Prefix key for USLS commands.")
-
-;; ;; Disable the prefix like this:
-;; (define-key global-map (kbd "C-c _") nil)
-
-(define-prefix-command 'usls-global-prefix-map)
-(define-key global-map (kbd "C-c _") 'usls-global-prefix-map)
-
-(let ((map usls-global-prefix-map))
-  (define-key map "d" 'usls-dired)
-  (define-key map "f" 'usls-find-file)
-  (define-key map "a" 'usls-append-region-buffer-or-file)
-  (define-key map "n" 'usls-new-note))
-
 (defvar usls-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "i" 'usls-id-insert)
-    (define-key map "l" 'usls-follow-link)
     map)
   "Key map for use when variable `usls-mode' is non-nil.")
-
-(define-prefix-command 'usls-mode-prefix-map 'usls-mode-map)
-(define-key usls-mode-map (kbd "C-c _") 'usls-mode-prefix-map)
 
 (defvar usls-mode-hook nil
   "Hook called when variable `usls-mode' is non-nil.")
