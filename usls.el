@@ -487,8 +487,9 @@ To be used as the PREDICATE of `completing-read-multiple'."
   (let ((dotless directory-files-no-dot-files-regexp))
     (cl-remove-if
      (lambda (x)
-       ;; TODO: generalise this for all VC backends?  Which ones?
-       (string-match-p "\\.git" x))
+       ;; TODO: generalise this for all VC backends?  Which ones? "
+       (or (string-match-p "\\.git" x)
+           (file-directory-p x)))
      (directory-files (usls--directory) nil dotless t))))
 
 (defun usls--directory-files-recursive ()
