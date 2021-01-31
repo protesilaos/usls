@@ -31,7 +31,10 @@
 ;; errors, cases where improvements could be made.  Please do not try it
 ;; with sensitive data that you have not safely backed up.  If you do use
 ;; it, I encourage you to send me feedback about anything you feel could be
-;; improved or otherwise made different.
+;; improved or otherwise made different.  This README is intentionally
+;; written in a not-so-easy-to-scan plain text format to remind you that
+;; this is pre-alpha software---a fully fledged Info manual will be
+;; furnished once the time is right.
 ;;
 ;;
 ;; USLS or usls, which may be pronounced as a series of letters or just
@@ -46,6 +49,42 @@
 ;; creating notes, (ii) adding forward/backward references to other notes,
 ;; (iii) browsing such references for the current file, (iv) visiting the
 ;; `usls-directory', (v) finding a file that belongs to said directory.
+;;
+;;
+;; Manual setup
+;; ------------
+;;
+;; Clone this repo to an appropriate path.  For example, using the command
+;; line:
+;;
+;;     $ mkdir ~/.emacs.d/custom-lisp
+;;     $ git clone https://gitlab.com/protesilaos/usls.git ~/.emacs.d/custom-lisp/usls
+;;
+;; Then make use the desired directory is part of the `load-path'.  Such
+;; as by evaluating this Elisp form:
+;;
+;;     (add-to-list 'load-path "~/.emacs.d/custom-lisp/usls/")
+;;
+;; And finally set up the package:
+;;
+;;     (require 'usls)
+;;     (with-eval-after-load 'usls
+;;       (setq usls-directory "~/Documents/notes/")
+;;       (setq usls-known-categories '("economics" "philosophy" "politics"))
+;;       (setq usls-file-type-extension ".txt")
+;;       (setq usls-subdir-support nil)
+;;       (setq usls-file-region-separator 'line)
+;;       (setq usls-file-region-separator-heading-level 1)
+;;       (setq usls-custom-header-function nil)
+;;
+;;       (let ((map global-map))               ; globally bound keys
+;;         (define-key map (kbd "C-c n d") 'usls-dired)
+;;         (define-key map (kbd "C-c n f") 'usls-find-file)
+;;         (define-key map (kbd "C-c n a") 'usls-append-region-buffer-or-file)
+;;         (define-key map (kbd "C-c n n") 'usls-new-note))
+;;       (let ((map usls-mode-map))            ; only for usls buffers
+;;         (define-key map (kbd "C-c n i") 'usls-id-insert)
+;;         (define-key map (kbd "C-c n l") 'usls-follow-link)))
 ;;
 ;;
 ;; The file name convention
@@ -94,9 +133,9 @@
 ;; inferred categories from existing file names.  The latter is possible
 ;; due to the assumption that the file name convention is fully respected.
 ;;
-;; To create a new category, just enter text that does not match any of
-;; the existing items.  To input multiple categories, separate them with
-;; a comma or whatever matches your `crm-separator'.  If your completion
+;; To create a new category, just enter text that does not match any of the
+;; existing items.  To input multiple categories, separate them with a
+;; comma or whatever matches your `crm-separator'.  If your completion
 ;; framework does not support such actions, then it should be considered
 ;; undesirable behaviour and reported upstream.
 ;;

@@ -25,6 +25,42 @@ creating notes, (ii) adding forward/backward references to other notes,
 `usls-directory', (v) finding a file that belongs to said directory.
 
 
+Manual setup
+------------
+
+Clone this repo to an appropriate path.  For example, using the command
+line:
+
+    $ mkdir ~/.emacs.d/custom-lisp
+    $ git clone https://gitlab.com/protesilaos/usls.git ~/.emacs.d/custom-lisp/usls
+
+Then make use the desired directory is part of the `load-path'.  Such
+as by evaluating this Elisp form:
+
+    (add-to-list 'load-path "~/.emacs.d/custom-lisp/usls/")
+
+And finally set up the package:
+
+    (require 'usls)
+    (with-eval-after-load 'usls
+      (setq usls-directory "~/Documents/notes/")
+      (setq usls-known-categories '("economics" "philosophy" "politics"))
+      (setq usls-file-type-extension ".txt")
+      (setq usls-subdir-support nil)
+      (setq usls-file-region-separator 'line)
+      (setq usls-file-region-separator-heading-level 1)
+      (setq usls-custom-header-function nil)
+
+      (let ((map global-map))               ; globally bound keys
+        (define-key map (kbd "C-c n d") 'usls-dired)
+        (define-key map (kbd "C-c n f") 'usls-find-file)
+        (define-key map (kbd "C-c n a") 'usls-append-region-buffer-or-file)
+        (define-key map (kbd "C-c n n") 'usls-new-note))
+      (let ((map usls-mode-map))            ; only for usls buffers
+        (define-key map (kbd "C-c n i") 'usls-id-insert)
+        (define-key map (kbd "C-c n l") 'usls-follow-link)))
+
+
 The file name convention
 ------------------------
 
