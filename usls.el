@@ -378,6 +378,38 @@ Markdown or Org types."
   :group 'usls
   :type 'integer)
 
+(defcustom usls-custom-header-function nil
+  "Function to format headers for new files (EXPERIMENTAL!!!).
+
+It should accept five arguments and catenate them as a string,
+preferably with the appropriate new lines in place.  The
+arguments are: title, date, categories, filename, id.  Those are
+supplied by `usls-new-note'.
+
+While all five arguments will be passed to this function, not all
+of them need to be part of the output.  Users may prefer, for
+example, to only include a title, a date, and a category.
+
+For ideas on how to format such a function, refer to the source
+code of `usls--file-meta-header'.
+
+Although this customisation can be set globally, another viable
+use-case is to `let' bind it in wrapper functions around
+`usls-new-note'.  In that scenario, it could be desirable to also
+set the value of `usls-file-type-extension', so as to generate a
+different type of note than the default: such as to write
+something in '.tex' while the default extension remains in tact.
+In this case, users are expected to define a wrapper for
+`usls-new-note' like this (without the backslashes that appear in
+the source of this docstring):
+
+  (defun my-usls-new-note-for-tex ()
+    (let ((usls-file-type-extension \".tex\")
+          (usls-custom-header-function #'my-usls-custom-header))
+      (usls-new-note)))"
+  :group 'usls
+  :type 'symbol)
+
 ;;; Main variables
 
 (defconst usls-id "%Y%m%d_%H%M%S"
@@ -749,7 +781,10 @@ note in."
          (date (format-time-string "%F"))
          (region (usls--file-region)))
     (with-current-buffer (find-file filename)
-      (insert (eval (usls--file-meta-header title date categories filename id)))
+      (insert (eval (if usls-custom-header-function
+                        (funcall usls-custom-header-function title date
+                                 categories filename id)
+                      (usls--file-meta-header title date categories filename id))))
       (save-excursion (insert region)))
     (add-to-history 'usls--title-history title)
     (usls--categories-add-to-history categories)))
