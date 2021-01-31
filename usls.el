@@ -857,14 +857,13 @@ note in."
   "Routines to append active region.
 All of BUF, REGION, ARG are intended to be passed by another
 function, such as with `usls-append-region-buffer-or-file'."
-  (let ((window (get-buffer-window buf)))
-    (with-current-buffer `,buf
+  (let ((window (get-buffer-window buf))
+        (mark (gensym)))
+    (with-current-buffer buf
       (goto-char (if (not (eq arg nil)) (point-max) (window-point window)))
-      (set-mark (point))
-      (insert `,region)
-      ;; REVIEW: is this the correct way to go to the last mark?  Are we
-      ;; polluting the mark-ring?
-      (goto-char (car mark-ring)))))
+      (setq mark (point))
+      (insert region)
+      (goto-char mark))))
 
 ;;;###autoload
 (defun usls-append-region-buffer-or-file (&optional arg)
