@@ -284,8 +284,8 @@
   :group 'usls
   :type 'directory)
 
-(defcustom usls-known-categories '(economics philosophy politics)
-  "List of predefined categories for `usls-new-note'.
+(defcustom usls-known-categories '("economics" "philosophy" "politics")
+  "List of strings with predefined categories for `usls-new-note'.
 
 The implicit assumption is that a category is a single word.  If
 you need a category to be multiple words long, use underscores to
@@ -295,7 +295,7 @@ demarcate distinct categories, per `usls--inferred-categories'.
 Also see `usls-categories' for a dynamically generated list that
 gets combined with this one in relevant prompts."
   :group 'usls
-  :type 'list)
+  :type '(repeat string))
 
 (defcustom usls-subdir-support nil
   "Enable support for subdirectories in `usls-directory'.
