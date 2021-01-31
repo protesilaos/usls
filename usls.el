@@ -568,7 +568,7 @@ Markdown or Org types."
 This helper function is meant to integrate with `usls-new-note'.
 As such TITLE, DATE, CATEGORIES, FILENAME, ID are all retrieved
 from there."
-  (let ((cat (usls--categories-capitalize `,categories)))
+  (let ((cat (usls--categories-capitalize categories)))
     (pcase usls-file-type-extension
       ;; TODO: make those templates somewhat customisable.  We need to
       ;; determine what should be parametrised.
