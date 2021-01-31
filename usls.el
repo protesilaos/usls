@@ -483,6 +483,13 @@ To be used as the PREDICATE of `completing-read-multiple'."
         (not flag))
     t))
 
+(defvar usls-mode)
+
+(defun usls--barf-non-text-usls-mode ()
+  "Throw error if not in a proper USLS buffer."
+  (unless (and usls-mode (derived-mode-p 'text-mode))
+    (user-error "Not in a writable USLS buffer; aborting")))
+
 ;;;; File name helpers
 
 (defun usls--directory ()
@@ -820,6 +827,7 @@ note in."
 (defun usls-id-insert ()
   "Insert at point the identity of a file using completion."
   (interactive)
+  (usls--barf-non-text-usls-mode)
   (let* ((files (usls--completion-table 'file (usls--directory-files-not-current)))
          (file (completing-read "Link to: " files nil t nil 'usls--link-history))
          (this-file (file-name-nondirectory (buffer-file-name)))
@@ -854,6 +862,7 @@ note in."
 (defun usls-follow-link ()
   "Visit link referenced in the note using completion."
   (interactive)
+  (usls--barf-non-text-usls-mode)
   (let ((default-directory (usls--directory))
         (links (usls--completion-table 'file (usls--links))))
     (if links
