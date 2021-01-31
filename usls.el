@@ -339,8 +339,8 @@ on the `usls-file-type-extension'.
   rule or page/section break and is a standard in Markdown.
 
 * For Org files it produces five consecutive hyphens with
-  newlines before and after ('\\n\\n-----\\n\\n').  This is the valid
-  syntax for a horizontal rule in `org-mode'.
+  newlines before and after ('\\n\\n-----\\n\\n').  This is the
+  valid syntax for a horizontal rule in Org mode.
 
 Option 'heading' produces a heading that is formatted according
 to `usls-file-type-extension'.  Its text is 'Reference':
@@ -415,6 +415,8 @@ Markdown or Org types."
 
 ;;; Basic utilities
 
+;; Contributed by Omar Antolín Camarena in another context:
+;; <https://github.com/oantolin>.
 (defun usls--completion-table (category candidates)
   "Pass appropriate metadata CATEGORY to completion CANDIDATES."
   (lambda (string pred action)
