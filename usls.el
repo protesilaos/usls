@@ -1084,7 +1084,7 @@ directory will be directly displayed instead."
 (add-hook 'dired-mode-hook #'usls-mode-activate)
 
 (defgroup usls-faces ()
-  "Faces for `usls-mode'."
+  "Faces for USLS mode."
   :group 'faces)
 
 (defface usls-header-data-date
