@@ -540,7 +540,7 @@ possible to select the same item twice.
 
 With prefix key (\\[universal-argument]) as optional ARG also
 prompt for a subdirectory of `usls-directory' to place the new
-note in."
+note in.  Subdirectories must already exist."
   (interactive "P")
   (let* ((subdir (when arg (usls--directory-subdirs-prompt)))
          (title (read-string "File title: " nil 'usls--title-history))
@@ -787,10 +787,10 @@ directory will be directly displayed instead."
 (defvar usls-mode-map
   (let ((map (make-sparse-keymap)))
     map)
-  "Key map for use when variable `usls-mode' is non-nil.")
+  "Key map for use when USLS mode is active.")
 
 (defvar usls-mode-hook nil
-  "Hook called when variable `usls-mode' is non-nil.")
+  "Hook called when USLS mode is active.")
 
 (define-minor-mode usls-mode
   "Extras for working with `usls' notes.
