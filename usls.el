@@ -39,7 +39,7 @@
   :group 'files
   :prefix "usls-")
 
-(defcustom usls-directory "~/Documents/notes/"
+(defcustom usls-directory (expand-file-name "~/Documents/notes/")
   "Directory for storing personal notes."
   :group 'usls
   :type 'directory)
