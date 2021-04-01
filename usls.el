@@ -424,23 +424,23 @@ from there."
       ;; TODO: make those templates somewhat customisable.  We need to
       ;; determine what should be parametrised.
       (".md" `(concat "---" "\n"
-                      "title: " ,title "\n"
-                      "date: " ,date "\n"
-                      "category: " ,cat "\n"
+                      "title:     " ,title "\n"
+                      "date:      " ,date "\n"
+                      "category:  " ,cat "\n"
                       "orig_name: " ,filename "\n"
-                      "orig_id: " ,id "\n"
+                      "orig_id:   " ,id "\n"
                       "---" "\n\n"))
-      (".org" `(concat "#+title: " ,title "\n"
-                       "#+date: " ,date "\n"
-                       "#+category: " ,cat "\n"
+      (".org" `(concat "#+title:     " ,title "\n"
+                       "#+date:      " ,date "\n"
+                       "#+category:  " ,cat "\n"
                        "#+orig_name: " ,filename "\n"
-                       "#+orig_id: " ,id "\n\n"))
-      (_ `(concat "title: " ,title "\n"
-                  "date: " ,date "\n"
-                  "category: " ,cat "\n"
+                       "#+orig_id:   " ,id "\n\n"))
+      (_ `(concat "title:     " ,title "\n"
+                  "date:      " ,date "\n"
+                  "category:  " ,cat "\n"
                   "orig_name: " ,filename "\n"
-                  "orig_id: " ,id "\n"
-                  (make-string 24 ?-) "\n\n")))))
+                  "orig_id:   " ,id "\n"
+                  (make-string 26 ?-) "\n\n")))))
 
 (defun usls--file-region-separator-heading-level (mark str)
   "Format MARK and STR for `usls--file-region-separator-str'.
