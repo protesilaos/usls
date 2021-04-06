@@ -626,15 +626,17 @@ note in.  Subdirectories must already exist."
 
 ;;;###autoload
 (defun usls-follow-link ()
-  "Visit link referenced in the note using completion."
+  "Visit link referenced in the note using completion.
+If no links are available, call `usls-find-file'."
   (interactive)
   (usls--barf-non-text-usls-mode)
-  (let ((default-directory (usls--directory))
-        (links (usls--completion-table 'file (usls--links))))
-    (if links
+  (let* ((default-directory (usls--directory))
+         (links (usls--links))
+         (refs (when links (usls--completion-table 'file links))))
+    (if refs
         (find-file
-         (completing-read "Follow link: " links nil t))
-      (usls-find-file))))
+         (completing-read "Follow link: " refs nil t))
+      (call-interactively 'usls-find-file))))
 
 ;;;; Find file
 
