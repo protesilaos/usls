@@ -644,13 +644,17 @@ note in.  Subdirectories must already exist."
      (file-truename file)
     (file-truename (concat (usls--directory) file))))
 
+(defun usls--find-file-prompt ()
+  "Completion prompt for `usls-find-file'."
+  (let ((files (usls--completion-table 'file (usls--directory-files))))
+    (completing-read "Visit file: " files nil t nil 'usls--file-history)))
+
 ;;;###autoload
-(defun usls-find-file ()
-  "Visit a file in `usls-directory' using completion."
-  (interactive)
+(defun usls-find-file (file)
+  "Visit a FILE in `usls-directory'.
+When called interactively use completion."
+  (interactive (list (usls--find-file-prompt)))
   (let* ((default-directory (usls--directory))
-         (files (usls--completion-table 'file (usls--directory-files)))
-         (file (completing-read "Visit file: " files nil t nil 'usls--file-history))
          (item (usls--file-name file)))
     (find-file item)
     (add-to-history 'usls--file-history file)))
