@@ -369,8 +369,9 @@ trailing hyphen."
 
 (defun usls--categories-prompt ()
   "Prompt for one or more categories.
-Those are separated by the `crm-sepator', which typically is a
-comma."
+In the case of multiple entries, those are separated by the
+`crm-sepator', which typically is a comma.  In such a case, the
+output is sorted with `string-lessp'."
   (let* ((categories (usls-categories))
          (choice (completing-read-multiple
                   "File category: " categories
@@ -378,7 +379,7 @@ comma."
                   nil nil 'usls--category-history)))
     (if (= (length choice) 1)
         (car choice)
-      choice)))
+      (sort choice #'string-lessp))))
 
 (defun usls--categories-hyphenate (categories)
   "Format CATEGORIES output of `usls--categories-prompt'."
