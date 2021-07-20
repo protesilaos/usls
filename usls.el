@@ -178,7 +178,7 @@ the source of this docstring):
 (defconst usls-id-regexp "\\([0-9_]+\\{15\\}\\)"
   "Regular expression to match `usls-id'.")
 
-(defconst usls-category-regexp "--\\([0-9A-Za-z_-]*\\)--"
+(defconst usls-category-regexp "\\(--\\)\\([0-9A-Za-z_-]*\\)\\(--\\)"
   "Regular expression to match `usls-categories'.")
 
 (defconst usls-file-regexp
