@@ -255,12 +255,15 @@ To be used as the PREDICATE of `completing-read-multiple'."
   "Valid name format for `usls-directory'."
   (file-name-as-directory usls-directory))
 
-(defun usls--extract (regexp str)
-  "Extract REGEXP from STR."
+(defun usls--extract (regexp str &optional group)
+  "Extract REGEXP from STR, with optional regexp GROUP."
+  (when group
+    (unless (and (integerp group) (> group 0))
+      (error "`%s' is not a positive integer" group)))
   (with-temp-buffer
     (insert str)
     (when (re-search-forward regexp nil t -1)
-      (match-string 1))))
+      (match-string (or group 1)))))
 
 (defvar usls--punctuation-regexp "[][{}!@#$%^&*()_=+'\"?,.\|;:~`‘’“”]*"
   "Regular expression of punctionation that should be removed.")
@@ -353,7 +356,7 @@ trailing hyphen."
   "Produce list of categories in `usls--directory-files'."
   (cl-remove-if nil
    (mapcar (lambda (x)
-             (usls--extract usls-category-regexp x))
+             (usls--extract usls-category-regexp x 2))
            (usls--directory-files))))
 
 (defun usls--inferred-categories ()
