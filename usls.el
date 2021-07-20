@@ -905,11 +905,12 @@ directory will be directly displayed instead."
 ;; `usls-file-regexp'.
 (defconst usls-font-lock-keywords
   `((,usls-file-regexp
-     (0 'usls-dired-field-delimiter)
-     (1 'usls-dired-field-date t)
-     (2 'usls-dired-field-category t)
-     (3 'usls-dired-field-name t)
-     (4 'usls-dired-field-delimiter t))
+     (1 'usls-dired-field-date)
+     (2 'usls-dired-field-delimiter)
+     (3 'usls-dired-field-category)
+     (4 'usls-dired-field-delimiter)
+     (5 'usls-dired-field-name)
+     (6 'usls-dired-field-delimiter))
     ("\\(title:\\) \\(.*\\)"
      (1 'usls-header-data-key)
      (2 'usls-header-data-title))
