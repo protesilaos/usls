@@ -354,7 +354,7 @@ trailing hyphen."
 
 (defun usls--categories-in-files ()
   "Produce list of categories in `usls--directory-files'."
-  (cl-remove-if nil
+  (delq nil
    (mapcar (lambda (x)
              (usls--extract usls-category-regexp x 2))
            (usls--directory-files))))
@@ -678,7 +678,7 @@ When called interactively use completion."
 
 (defun usls--window-buffer-file-names-list ()
   "Return file names in `usls--window-buffer-list'."
-  (cl-remove-if nil
+  (delq nil
    (mapcar (lambda (x)
              (buffer-file-name x))
            (usls--window-buffer-list))))
@@ -687,7 +687,7 @@ When called interactively use completion."
   "Return USLS files in `usls--window-buffer-file-names-list'."
   (let ((files (usls--directory-files-recursive))
         (buf-files (mapcar #'abbreviate-file-name (usls--window-buffer-file-names-list))))
-    (cl-remove-if nil
+    (delq nil
      (mapcar (lambda (x)
                (when (member x files)
                  x))
