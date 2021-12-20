@@ -133,7 +133,7 @@ option `usls-file-region-separator-heading-level' and defaults to
 
 (defcustom usls-file-region-separator-heading-level 1
   "Heading level for `usls-file-region-separator'.
-Has effect when `usls-file-type-extension' is either that for
+Has effect when `usls-file-type-extension' is either that of
 Markdown or Org types."
   :group 'usls
   :type 'integer)
