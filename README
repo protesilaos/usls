@@ -75,9 +75,12 @@ presentation is compact, with only the underscore separating the two
 components.  Like this: 20201108_091625.  The DATE serves as the unique
 identifier of each note.
 
-CATEGORY is one or more entries separated by a hyphen.  Items that need
-to be more than one word long must be written with an underscore.  So
-"emacs_library" is one category, while "emacs-library" are two.
+CATEGORY is one or more entries separated by a plus sign (the separator
+is inserted automatically when using the command `usls-new-note').
+Items that need to be more than one word long must be written with an
+underscore.  So when "emacs_library" appears in a file name, it is
+interpreted as a single category, while "emacs+library" are two distinct
+categories.
 
 The TITLE is the title of the note that gets extracted and hyphenated.
 An entry about "This is a test" produces a "this-is-a-test" TITLE.
@@ -85,8 +88,9 @@ An entry about "This is a test" produces a "this-is-a-test" TITLE.
 Some complete examples:
 
 20201007_124941--economics--plentiful-and-predictable-liquidity.txt
-20201007_104945--emacs-git--git-patch-formatting.txt
+20201007_104945--emacs+git--git-patch-formatting.txt
 20201105_113805--monetary_policy--asset-bubbles-macroprudential-policy.txt
+20211220_113805--three_word_category+docs+test--this-is-a-test.txt
 
 EXTENSION is one of ".txt", ".md", ".org" and is subject to a
 user-facing customisation option.
