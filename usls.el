@@ -64,7 +64,7 @@ The default workflow of USLS is to maintain a flat directory
 where all the notes are stored in.  This allows us to omit the
 common filesystem path and only show file names.
 
-When set to non-nil, the usls workflow can handle subdirectories
+When set to non-nil, the USLS workflow can handle subdirectories
 at the expense of making all file names more verbose, as it needs
 to include the complete path.
 
@@ -158,7 +158,7 @@ use-case is to `let' bind it in wrapper functions around
 `usls-new-note'.  In that scenario, it could be desirable to also
 set the value of `usls-file-type-extension', so as to generate a
 different type of note than the default: such as to write
-something in '.tex' while the default extension remains in tact.
+something in '.tex' while the default extension remains intact.
 In this case, users are expected to define a wrapper for
 `usls-new-note' like this (without the backslashes that appear in
 the source of this docstring):
