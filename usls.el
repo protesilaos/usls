@@ -309,16 +309,20 @@ With optional DIRECTORY, find files there, else use
        (string-match-p "\\.git" x))
      (directory-files-recursively (usls--directory) ".*" nil t)))
 
+(defun usls--make-directory (directory)
+  "Make DIRECTORY, if missing."
+  (let ((path directory))
+    (unless (file-directory-p path)
+      (make-directory path t))))
+
 (defun usls--directory-files (&optional directory)
   "List directory files.
 With optional DIRECTORY, specify path for
 `usls--directory-files-flat'."
-  (let ((path (usls--directory)))
-    (unless (file-directory-p path)
-      (make-directory path t))
-    (if usls-subdir-support
-        (usls--directory-files-recursive)
-      (usls--directory-files-flat directory))))
+  (usls--make-directory (usls--directory))
+  (if usls-subdir-support
+      (usls--directory-files-recursive)
+    (usls--directory-files-flat directory)))
 
 (defun usls--directory-subdirs ()
   "Return list of subdirectories in `usls-directory'."
